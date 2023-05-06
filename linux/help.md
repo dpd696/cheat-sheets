@@ -12,14 +12,13 @@ The man page is displayed with the less command
 ---
 ## SHORTCUTS:
 ```
-man -h    => getting help
-man -q    => quit
-$ enter   => show next line
-$ space   => show next screen
-/string   => search forward for a string
-?string   => search backwards for a string
-man -n /  => next appearance
-man -N    => previous appearance
+# h         => getting help
+# q         => quit
+# enter     => show next line
+# space     => show next screen
+# /string   => search forward for a string
+# ?string   => search backwards for a string
+# n / N     => next/previous appearance
 ```
 
 ---
