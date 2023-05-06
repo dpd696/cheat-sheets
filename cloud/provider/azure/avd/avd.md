@@ -17,13 +17,13 @@ Basic Setup Video: [Azure Virtual Desktop (AVD) Setup](https://www.youtube.com/w
 ## Creating a Resource Group
 
 Resource Group is a Container
-1.Click on the left menu
-2.Go to Resource Group
-3.Create a Resource Group
-4.Name it something short but relevent ex. AVD
-5.Select Region
-6.Select Tag (Optional) 
-7.Create
+1. Click on the left menu
+2. Go to Resource Group
+3. Create a Resource Group
+4. Name it something short but relevent ex. AVD
+5. Select Region
+6. Select Tag (Optional) 
+7. Create
 
 ---
 ## Creating a Virtual Network
