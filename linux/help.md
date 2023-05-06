@@ -1,17 +1,17 @@
 
-## Getting Help in Linux
+# Getting Help in Linux
 
-# MAN Pages
+## MAN Pages
 $ man command     # => Ex: man ls
 
 The man page is displayed with the less command
 
-# SHORTCUTS:
+## SHORTCUTS:
 
-h         => getting help
-q         => quit
-enter     => show next line
-space     => show next screen
+$ h         => getting help
+$ q         => quit
+$ enter     => show next line
+$ space     => show next screen
 /string   => search forward for a string
 ?string   => search backwards for a string
 n / N     => next/previous appearance
