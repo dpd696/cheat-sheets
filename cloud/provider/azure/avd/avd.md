@@ -50,11 +50,11 @@ Pool for a group of Virtual Desktops
 6. Give it a Name ex. POOL1
 7. Select Region (Keep Resources and AVD in same region)
 8. Select Pool type
-    Personal - Dedicated Virtual Desktop
-    Pooled - Floating Desktop
+    1. Personal - Dedicated Virtual Desktop
+    2. Pooled - Floating Desktop
 9. If you select Pooled you have to define Load Balancing Algorithm
-    Breadth-first - Assign a user per machine per connection
-    Depth-first - Set number of users before another machine is created
+    1. Breadth-first - Assign a user per machine per connection
+    2. Depth-first - Set number of users before another machine is created
 10. Set Maximum Session Limit
 11. Click Next:Virtual Machine (This will be done on another step)
 12. Click Next:Workspace (This will be done on another step)
