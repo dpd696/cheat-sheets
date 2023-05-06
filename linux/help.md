@@ -3,20 +3,24 @@
 
 ---
 ## MAN Pages
-| man command     # => Ex: man ls
+```
+man command     # => Ex: man ls
+```
 
 The man page is displayed with the less command
 
 ---
 ## SHORTCUTS:
-
-| h         => getting help
-$ q         => quit
-$ enter     => show next line
-$ space     => show next screen
+```
+man -h    => getting help
+man -q    => quit
+$ enter   => show next line
+$ space   => show next screen
 /string   => search forward for a string
 ?string   => search backwards for a string
-n / N     => next/previous appearance
+man -n /  => next appearance
+man -N    => previous appearance
+```
 
 ---
 ## checking if a command is shell built-in or executable file
