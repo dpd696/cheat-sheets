@@ -31,7 +31,7 @@ usermod [OPTIONS] username | => uses the same options as useradd
 Example:
 ```
 usermod -aG developers,managers john        # => adding the user to two secondary groups
-`
+```
 
 ## Deleting A User Account
 ```
