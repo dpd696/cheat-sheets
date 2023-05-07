@@ -45,7 +45,7 @@ Additionally you can also use the following special characters to build more adv
 
 COMMAND | DESCRIPTION
 ---|---
-* * * * * /path_to_task_to_run.sh | # run every minute
+'* * * * *' /path_to_task_to_run.sh | # run every minute
 15 * * * * /path_to_task_to_run.sh | # run every hour at minute 15
 30 18 * * * /path_to_task_to_run.sh | # run every day at 6:30 PM
 3 22 * * 1 /path_to_task_to_run.sh | # run every Monday at 10:03 PM
