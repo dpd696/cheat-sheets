@@ -3,9 +3,6 @@
 ## **VSCode Shortcuts**
 
 ---
-# VS CODE SHORTCUTS7
-
----
 GENERAL | DESCRIPTION
 ---|---
 Ctrl+Shift+P, F1 | Show Command Palette
