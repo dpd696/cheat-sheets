@@ -21,7 +21,6 @@ space | => show next screen
 n / N | => next/previous appearance
 
 ## Using tail
-less filename
 COMMAND | DESCRIPTION
 ---|---
 tail filename | # showing the last 10 lines of a file
@@ -30,14 +29,12 @@ tail -n +5 filename | # showing the last lines of a file starting with line no. 
 tail -f filename | # showing the last 10 lines of the file in real-time
 
 ## Using head
-less filename
 COMMAND | DESCRIPTION
 ---|---
 head filename | # showing the first 10 lines of a file
 head -n 15 filename | # showing the first 15 lines of a file
 
 ## Using watch
-less filename
 COMMAND | DESCRIPTION
 ---|---
 watch -n 3 ls -l | # running repeatedly a command with refresh of 3 seconds
