@@ -12,10 +12,10 @@ A | => insert at the end of the line
 o | => insert on the next line
  
 ## Entering the Last Line Mode from the Command Mode
-:
+$ :
  
-## Returning to Command Mode from Insert or Last Line Mode 
-ESC
+## Returning to Command Mode from Insert or Last Line Mode
+$ ESC
  
 ## Shortcuts in Last Line Mode
 COMMAND | DESCRIPTION
