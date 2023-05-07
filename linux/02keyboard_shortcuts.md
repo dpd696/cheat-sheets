@@ -1,29 +1,16 @@
 # Keyboard Shortcuts
 
-TAB  # autocompletes the command or the filename if its unique
-TAB TAB (press twice)   # displays all commands or filenames that start with those letters
+###TAB  # autocompletes the command or the filename if its unique
+###TAB TAB (press twice)   # displays all commands or filenames that start with those letters
 
 ---
-## clearing the terminal
-CTRL + L
-
-## closing the shell (exit)
-CTRL + D
-
-## cutting (removing) the current line 
-CTRL + U
-
-## moving the cursor to start of the line
-CTRL + A
-
-## moving the cursor to the end of the line
-Ctrl + E
-
-## stopping the current command
-CTRL + C
-
-## sleeping a the running program
-CTRL + Z
-
-## opening a terminal 
-CTRL + ALT + T
+COMMAND | DESCRIPTION
+---|---
+CTRL + L | clearing the terminal
+CTRL + D | closing the shell (exit)
+CTRL + U | cutting (removing) the current line 
+CTRL + A | moving the cursor to start of the line
+CTRL + E | moving the cursor to the end of the line
+CTRL + C | stopping the current command
+CTRL + Z | sleeping a the running program
+CTRL + ALT + T | opening a terminal
