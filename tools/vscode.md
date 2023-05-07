@@ -1,6 +1,8 @@
 # VSCode (Visual Studio Code)
 
-## **VSCode Shortcuts**
+## SHORTCUTS FOR LINUX
+
+**[Download Shorcuts PDF](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf)** get a copy of the Visual Sudio Code Keyboard shortcuts for Linux
 
 ---
 GENERAL | DESCRIPTION
