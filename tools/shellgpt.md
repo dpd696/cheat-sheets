@@ -56,7 +56,7 @@ env | grep -i openai
 ```
 - Varibles are Temporarily Stored unless added to INIT File. Open /.bashrc and add OPEN_API_KEY="Paste Open API Key at the end of the Script.
 ```
-nano ~/.bachrc
+nano ~/.bashrc
 ```
 - Alternatively to storing the API Key as an Environmental Varible is to add it to the ShellGPT runtime configuration file.
 ```
