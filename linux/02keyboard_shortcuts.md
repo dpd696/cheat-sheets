@@ -1,7 +1,6 @@
 # Keyboard Shortcuts
 
 TAB  # autocompletes the command or the filename if its unique
-----
 TAB TAB (press twice)   # displays all commands or filenames that start with those letters
 
 ---
