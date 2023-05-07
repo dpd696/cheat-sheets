@@ -58,7 +58,8 @@ $ 10 */2 * * * /path_to_task_to_run.sh | # run every two hour at minute 10
 @hourly     /path_to_task_to_run.sh | # once an hour at the beginning of the hour
 @reboot     /path_to_task_to_run.sh | # run at boot time
 
-##All scripts in following directories will run as root at that interval:
+## All scripts in following directories will run as root at that interval:
+
 ```
 /etc/cron.hourly
 /etc/cron.daily  
