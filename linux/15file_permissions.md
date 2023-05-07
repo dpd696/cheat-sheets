@@ -2,16 +2,14 @@
 
 LEGEND | DESCRIPTION
 ---|---
-LEGEND
-u | User
-g | Group
-o | Others/World
-a | all
- | 
-r | Read
-w | write
-x | execute
-- | no access
+$ u | User
+$ g | Group
+$ o | Others/World
+$ a | all
+$ r | Read
+$ w | write
+$ x | execute
+$ - | no access
 
 ## Displaying The Permissions (ls and stat)
 
@@ -46,6 +44,7 @@ chmod a+r,a-wx filename
 
 
 PERMISSIONS | EXAMPLE
+---|---
 u   g   o | User Group Others/World
 rwx rwx rwx | chmod 777 filename
 rwx rwx r-x | chmod 775 filename
@@ -97,7 +96,7 @@ chmod 4XXX executable_file      # => Ex: chmod 4755 script.sh
 
 # SGID (Set Group ID)
 
-# Displaying The Sgid Permission
+## Displaying The Sgid Permission
 
 ```
 ls -ld projects/
@@ -163,13 +162,13 @@ umask
 
 COMMAND | DESCRIPTION
 ---|---
-umask new_value # => Ex: umask 0022 | # setting a new umask value
+umask new_value | # setting a new umask value => Ex: umask 0022
 
 ## Changing File Ownership (root only)
 
 COMMAND | DESCRIPTION
 ---|---
-chown new_owner file/directory # => Ex: sudo chown john a.txt | # changing the owner
+chown new_owner file/directory | # changing the owner => Ex: sudo chown john a.txt
 chgrp new_group file/directory | # changing the group owner
 chown new_owner:new_group file/directory | # changing both the owner and the group owner
 chown -R new-owner file/directory | # changing recursively the owner or the group owner
