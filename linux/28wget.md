@@ -8,6 +8,8 @@ dnf install wget        # => CentOS
 
 ---
 ## Download A File In The Current Directory
+
+```
 wget https://cdimage.kali.org/kali-2020.2/kali-linux-2020.2-installer-amd64.iso
 ```
 
