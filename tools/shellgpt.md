@@ -84,4 +84,4 @@ sgpt --temperature 0 --code "Python script that prompts the user for an URL, con
 ```
 python3 web_scraping.py
 ```
-- When prompted Emter URL: https://www.website.com
+- When prompted Enter URL: https://www.website.com
