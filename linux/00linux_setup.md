@@ -3,40 +3,45 @@
 Setting up Linux the right way
 
 ---
-# Installing terminator
+## Installing terminator
 
 ```
 sudo apt update && sudo apt install terminator
 ```
 
 ---
-# Installing OPENSSH
+## Installing OPENSSH
 
 - [OPENSSH](https://github.com/dpd696/cheat-sheets/blob/98ea8c1400db7b4439bdde55972e66f9659c6be7/linux/23openssh.md) - Guide for Installing SSH and Best Practices for Securing SSH
 
 ---
-# Installing Tree
+## Installing Tree
 
 ```
 sudo apt update && sudo apt install tree
 ```
 
 ---
-# Installing htop
+## Installing htop
 
 ```
 sudo apt update && sudo apt install htop 
 ```
 
 ---
-# Installing net-tools
+## Installing net-tools
 
 ```
 sudo apt update && sudo apt install net-tools 
 ```
 
 ---
-# Setting up CRON TAB for Automatic Updates
+## Alias Setup
+
+- [Alias](https://github.com/dpd696/cheat-sheets/blob/98ea8c1400db7b4439bdde55972e66f9659c6be7/linux/26alias23openssh.md) - Guide for Setting up Aliases for quick Shortcuts to Common Commands.
+
+---
+## Setting up CRON TAB for Automatic Updates
 
 ```
 cron -e 
@@ -49,7 +54,7 @@ cron -e
 ```
 
 ---
-# Installing SHELLGPT
+## Installing SHELLGPT
 
 - [SHELLGPT](https://github.com/dpd696/cheat-sheets/blob/98ea8c1400db7b4439bdde55972e66f9659c6be7/tools/shellgpt.md) - Guide for Installing SHELLGPT a ChatGPT for anything.
 
