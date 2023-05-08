@@ -13,3 +13,35 @@ Unmount
 umount <device/directory>
 ```
 
+## HOW TO MOUNT
+
+- First, you need to install the NFS server on the machine that has the folder you want to share. You can do this by running the following command:
+```
+sudo apt-get install nfs-kernel-server
+```
+- Next, you need to configure the NFS server by editing the /etc/exports file. Add a line to the file that specifies the folder you want to share and the IP address of the machine that you want to grant access to. For example:
+```
+sudo nano /etc/exports
+```
+```
+/path/to/folder 192.168.1.100(rw,sync,no_subtree_check)
+```
+- In this example, /path/to/folder is the path to the folder you want to share, and 192.168.1.100 is the IP address of the machine that you want to grant access to. The options "rw", "sync", and "no_subtree_check" specify the permissions and behavior of the shared folder.
+
+- Save the /etc/exports file and restart the NFS server by running the following command:
+```
+sudo systemctl restart nfs-kernel-server
+```
+- On the machine that you want to access the shared folder from, you need to install the NFS client by running the following command:
+```
+sudo apt-get install nfs-common
+```
+- Then, you can mount the shared folder by running the following command:
+```
+sudo mount 192.168.1.101:/path/to/folder /mnt/shared
+```
+- In this example, 192.168.1.101 is the IP address of the machine that has the shared folder, and /mnt/shared is the local mount point where the shared folder will be accessible.
+
+- Note that you may need to adjust firewall settings or network configurations to allow NFS traffic between the two machines.
+
+
