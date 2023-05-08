@@ -44,4 +44,21 @@ sudo mount 192.168.1.101:/path/to/folder /mnt/shared
 
 - Note that you may need to adjust firewall settings or network configurations to allow NFS traffic between the two machines.
 
+## SYNOLOGY
 
+- Showmount, called on the client machine, shows the share
+```
+showmount 10.0.0.100 -e
+```
+- Attach the NAS shared folder
+```
+sudo mount <nas.ip.address>:[/share/mount-path] [/mnt/point]
+```
+- Verify the mount was successful by checking the attached disks (df) and searching for the mount point we created on the Pi (grep /mnt/backups).
+```
+df -h | grep /mnt/backups
+```
+- If successful, it will return something like this: 
+```
+192.168.1.30:/volume1/backups  5.4T  3.7T  1.8T  68% /mnt/backups
+```
