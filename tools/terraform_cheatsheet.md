@@ -1,4 +1,4 @@
-#Terraform Cheat Sheet
+# Terraform Cheat Sheet
 =====================
 
 ### [Terraform Architecture](#terraform-architecture)
