@@ -3,7 +3,7 @@
 
 ### [Terraform Architecture](#terraform-architecture)
 
-### '[Installation](#installation)'
+### [Installation](#installation)
 
 -   [Windows](#windows)
 -   [Linux (Ubuntu) Package Manager](#linux)
