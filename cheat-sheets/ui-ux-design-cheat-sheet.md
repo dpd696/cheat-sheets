@@ -237,7 +237,7 @@ can improve the user experience of your product. Wireframes are also a
 great way to get feedback from clients. The earlier you can find and fix
 issues, the easier it will be once we get to the final product.
 
-![8 -
+[8 -
 Wireframes](//images.ctfassets.net/aq13lwl6616q/3kiIwR7xWMHGvU4sS7z4p5/cfae60938c5134656bb81429ea7b6af7/8_-_Wireframes.jpg)
 
 Remember to keep it simple, more detailed than the sketch, but not the

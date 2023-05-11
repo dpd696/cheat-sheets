@@ -3,7 +3,7 @@
 
 ### [Terraform Architecture](#terraform-architecture)
 
-### [Installation](#installation)
+### '[Installation](#installation)'
 
 -   [Windows](#windows)
 -   [Linux (Ubuntu) Package Manager](#linux)
@@ -56,7 +56,7 @@
 
 ----------------------
 
-![Terraform Cheatsheet
+[Terraform Cheatsheet
 Asset](//images.ctfassets.net/aq13lwl6616q/1k3eTjGyjFVu3Y3JW9QLiN/3242b20fad863892f462a0e1a368c9b6/Screen_Shot_2022-04-26_at_9.26.45_AM.png)
 
 Installation
