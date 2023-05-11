@@ -664,7 +664,7 @@ DesignSystems-B](//images.ctfassets.net/aq13lwl6616q/2XudlICHRfc5RMkAUKijee/13dc
 **The biggest thing to remember is that design systems are ever
 evolving.**
 
-![26 -
+[26 -
 DesignSystems-C](//images.ctfassets.net/aq13lwl6616q/7KFKAQ2U3fIRKjgCooxGwn/bea88dcbbe10a1ae81cf73896707beca/26_-_DesignSystems-C.jpg)
 
 Useful links
