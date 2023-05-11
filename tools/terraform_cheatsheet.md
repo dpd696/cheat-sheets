@@ -33,7 +33,7 @@
 ### [Loops](#loops)
 
 -   [count](#count)
--   [for\_each](#for-each)
+-   [foreach](#for-each)
 -   [For Expressions](#for-expressions)
 -   [Splat Expressions](#splat-expressions)
 -   [Dynamic Blocks](#dynamic-blocks)
@@ -53,16 +53,13 @@
 ### [Terraform Modules](#terraform-modules)
 
 ### [Troubleshooting and Logging](#troubleshooting)
-:::
 
-::: {#cheatsheet-content .cheat-sheetsstyles__CheatsheetContainer-sc-15sn584-1 .dVbOyE}
-Terraform Architecture {#terraform-architecture}
 ----------------------
 
 ![Terraform Cheatsheet
 Asset](//images.ctfassets.net/aq13lwl6616q/1k3eTjGyjFVu3Y3JW9QLiN/3242b20fad863892f462a0e1a368c9b6/Screen_Shot_2022-04-26_at_9.26.45_AM.png)
 
-Installation {#installation}
+Installation
 ------------
 
 ### Windows
@@ -78,51 +75,41 @@ Installation {#installation}
 
 1.  Run the following commands at the terminal.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install terraform
 ```
-:::
-
-\
 
 2.  Install Terraform using the package manager.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 sudo apt update && sudo apt install terraform -y 
 ```
-:::
 
 ### macOS Package Manager {#macos}
 
 Run the following commands at the terminal.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
 ```
-:::
 
 Terraform CLI {#terraform-cli}
 -------------
 
-`terraform version`{.language-text}
+`terraform version`
 
 Displays the version of Terraform and all installed plugins.
 
-\
 
-`terraform -install-autocomplete `{.language-text}
+`terraform -install-autocomplete `
 
 Sets up tab auto-completion, requires logging back in.
 
-\
 
-`terraform fmt `{.language-text}
+`terraform fmt `
 
 Rewrites all Terraform configuration files to a canonical format. Both
 configuration files (.tf) and variable files (.tfvars) are updated.
@@ -133,24 +120,21 @@ configuration files (.tf) and variable files (.tfvars) are updated.
   `-recursive`   Also process files in subdirectories. By default, only the given directory (or current directory) is processed.
   -------------- -----------------------------------------------------------------------------------------------------------------
 
-\
 
-`terraform validate `{.language-text}
+`terraform validate `
 
 Validates the configuration files for errors. It refers only to the
 configuration and not accessing any remote services such as remote
 state, or provider APIs.
 
-\
 
-`terraform providers`{.language-text}
+`terraform providers`
 
 Prints out a tree of modules in the referenced configuration annotated
 with their provider requirements.
 
-\
 
-`terraform init`{.language-text}
+`terraform init`
 
 Initializes a new or existing Terraform working directory by creating
 initial files, loading any remote state, downloading modules, etc.
@@ -170,9 +154,8 @@ This command is always safe to run multiple times.
   `-upgrade `        Install the latest module and provider versions allowed within configured constraints, overriding the default behavior of selecting exactly the version recorded in the dependency lockfile.
   ------------------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\
 
-`terraform plan`{.language-text}
+`terraform plan`
 
 Generates an execution plan, showing what actions will Terraform take to
 apply the current configuration. This command will not actually perform
@@ -183,7 +166,7 @@ the planned actions.
 +-----------------------------------+-----------------------------------+
 | `-out=path `                      | Write a plan file to the given    |
 |                                   | path. This can be used as input   |
-|                                   | to the \"apply\" command.         |
+|                                   | to the apply command.         |
 +-----------------------------------+-----------------------------------+
 | `-input=true`                     | Ask for input for variables if    |
 |                                   | not directly set.                 |
@@ -197,20 +180,20 @@ the planned actions.
 | `-var-file=filename`              | Load variable values from the     |
 |                                   | given file, in addition to the    |
 |                                   | default files terraform.tfvars    |
-|                                   | and \*.auto.tfvars.               |
+|                                   | and .auto.tfvars.               |
 |                                   |                                   |
 |                                   | Use this option more than once to |
 |                                   | include more than one variable    |
 |                                   | file.                             |
 +-----------------------------------+-----------------------------------+
-| `-destroy `                       | Select the \"destroy\" planning   |
+| `-destroy `                       | Select the destroy planning   |
 |                                   | mode, which creates a plan to     |
 |                                   | destroy all objects currently     |
 |                                   | managed by this Terraform         |
 |                                   | configuration instead of the      |
 |                                   | usual behavior.                   |
 +-----------------------------------+-----------------------------------+
-| `-refresh-only`                   | Select the \"refresh only\"       |
+| `-refresh-only`                   | Select the refresh only       |
 |                                   | planning mode, which checks       |
 |                                   | whether remote objects still      |
 |                                   | match the outcome of the most     |
@@ -228,9 +211,8 @@ the planned actions.
 |                                   | This is for exceptional use only. |
 +-----------------------------------+-----------------------------------+
 
-\
 
-`terraform apply`{.language-text}
+`terraform apply`
 
 Creates or updates infrastructure according to Terraform configuration
 files in the current directory.
@@ -254,7 +236,7 @@ files in the current directory.
 | `-var-file=filename`              | Load variable values from the     |
 |                                   | given file, in addition to the    |
 |                                   | default files terraform.tfvars    |
-|                                   | and \*.auto.tfvars.               |
+|                                   | and .auto.tfvars.               |
 |                                   |                                   |
 |                                   | Use this option more than once to |
 |                                   | include more than one variable    |
@@ -264,23 +246,19 @@ files in the current directory.
 |                                   | operations. Defaults to 10.       |
 +-----------------------------------+-----------------------------------+
 
-\
 
 Examples:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 terraform apply -auto-approve -var-file=web-prod.tfvars
 terraform apply -replace="aws_instance.server"
 ```
-:::
 
-\
 
-`terraform destroy`{.language-text}
+`terraform destroy`
 
 Destroys Terraform-managed infrastructure and is an alias for
-`terraform apply -destroy`{.language-text}
+`terraform apply -destroy`
 
   ----------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------
   **Option**        **Description**
@@ -289,36 +267,32 @@ Destroys Terraform-managed infrastructure and is an alias for
   ----------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Example:
-`terraform destroy -target aws_vpc.my_vpc -auto-approve`{.language-text}
+`terraform destroy -target aws_vpc.my_vpc -auto-approve`
 
-\
 
-`terraform taint`{.language-text}
+`terraform taint`
 
 Describes a resource instance that may not be fully functional, either
-because its creation partially failed or because you\'ve manually marked
+because its creation partially failed or because youve manually marked
 it as such using this command. Subsequent Terraform plans will include
 actions to destroy the remote object and create a new object to replace
 it.
 
-\
 
-`terraform untaint `{.language-text}
+`terraform untaint `
 
 Removes that state from a resource instance, causing Terraform to see it
 as fully-functional and not in need of replacement.
 
-\
 
-`terraform refresh`{.language-text}
+`terraform refresh`
 
 Updates the state file of your infrastructure with metadata that matches
 the physical resources they are tracking. This will not modify your
 infrastructure, but it can modify your state file to update metadata.
 
-\
 
-`terraform workspace`{.language-text}
+`terraform workspace`
 
   ------------ -----------------------------------------
   **Option**   **Description**
@@ -329,12 +303,11 @@ infrastructure, but it can modify your state file to update metadata.
   `show`       Show the name of the current workspace.
   ------------ -----------------------------------------
 
-\
 
-`terraform state`{.language-text}
+`terraform state`
 
 This does advanced state management. The state is stored by default in a
-local file named **\"terraform.tfstate\"**, but it can also be stored
+local file named **terraform.tfstate**, but it can also be stored
 remotely, which works better in a team environment.
 
   ------------ ------------------------------------------
@@ -346,23 +319,19 @@ remotely, which works better in a team environment.
   `pull`       Pull current state and output to stdout.
   ------------ ------------------------------------------
 
-\
 
 Examples:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 terraform state show aws_instance.my_vm 
 terraform state pull > my_terraform.tfstate
 terraform state mv aws_iam_role.my_ssm_role 
 terraform state list
 terraform state rm aws_instance.my_server
 ```
-:::
 
-\
 
-`terraform output`{.language-text}
+`terraform output`
 
 Reads an output variable from a Terraform state file and prints the
 value. With no additional arguments, output will display all the outputs
@@ -370,14 +339,13 @@ for the root module.
 
 Examples:
 
--   `terraform output [-json]`{.language-text}: Lists all outputs in the
+-   `terraform output [-json]`: Lists all outputs in the
     state file.
--   `terraform output instance_public_ip`{.language-text}: Lists a
+-   `terraform output instance_public_ip`: Lists a
     specific output value.
 
-\
 
-`terraform graph`{.language-text}
+`terraform graph`
 
 Produces a representation of the dependency graph between different
 objects in the current configuration and state. The graph is presented
@@ -386,16 +354,13 @@ GraphViz, but many web services are also available to read this format.
 
 Linux Example:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 sudo apt install graphviz
 terraform graph | dot -Tpng > graph.png
 ```
-:::
 
-\
 
-`terraform import`{.language-text}
+`terraform import`
 
 Import existing infrastructure into your Terraform state. This will find
 and import the specified resource into your Terraform state, allowing
@@ -403,23 +368,21 @@ existing infrastructure to come under Terraform management without
 having to be initially created by Terraform.
 
 Example:
-`terraform import aws_instance.new_server i-123abc`{.language-text}
+`terraform import aws_instance.new_server i-123abc`
 
 Imports EC2 instance with id i-abc123 into the Terraform resource named
-\"new\_server\" of type \"aws\_instance\".
+newserver of type awsinstance.
 
-\
 
-`terraform login [hostname]`{.language-text}
+`terraform login [hostname]`
 
 Retrieves an authentication token for the given hostname, if it supports
 automatic login, and saves it in a credentials file in your home
 directory. If no hostname is provided, the default hostname is
 app.terraform.io, to log in to Terraform Cloud.
 
-\
 
-`terraform logout [hostname]`{.language-text}
+`terraform logout [hostname]`
 
 Removes locally-stored credentials for the specified hostname. If no
 hostname is provided, the default hostname is app.terraform.io.
@@ -428,7 +391,7 @@ hostname is provided, the default hostname is app.terraform.io.
 
   ----------- ------------------------------------------
   `#`         single-line comment.
-  `//`        single-line comment (alternative to \#).
+  `//`        single-line comment (alternative to ).
   `/* … */`   multi-line comment (block comment).
   ----------- ------------------------------------------
 
@@ -447,8 +410,7 @@ a Service (PaaS), and Software as a Service (SaaS).
 
 ### Provider Configuration
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 terraform {
  required_providers {
    aws = {                      # provider local name
@@ -463,7 +425,6 @@ provider "aws" {
  region = "us-central-1" # provider configuration options
 }
 ```
-:::
 
 Terraform Resources {#terraform-resources}
 -------------------
@@ -473,12 +434,11 @@ describes one or more infrastructure objects to manage.
 
 Together the resource **type** and **local name** serve as an identifier
 for a given resource and must be unique within a module. Example:
-`aws_vpc.main`{.language-text}
+`aws_vpc.main`
 
 Creating resources:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 resource "<provider>_<resource_type>" "local_name"{
     argument1 = value
     argument2  = value
@@ -495,7 +455,6 @@ resource "aws_vpc" "main" {
     }
 }
 ```
-:::
 
 Terraform Variables {#terraform-variables}
 -------------------
@@ -506,11 +465,10 @@ hard-coded values in the source.
 ### Declaring a variable {#declaring-variables}
 
 Variable declarations can appear anywhere in your configuration files.
-However, it\'s recommended to put them into a separate file called
+However, its recommended to put them into a separate file called
 **variables.tf**.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # variable declaration
 variable "vpc_cidr_block" {
    description = "CIDR block for VPC".
@@ -518,7 +476,6 @@ variable "vpc_cidr_block" {
    type = string
 }
 ```
-:::
 
 ### Assigning values to variables {#assigning-values}
 
@@ -526,37 +483,37 @@ variable "vpc_cidr_block" {
 
 2.  Assign a value to the variable in the variable definition file which
     by default is **terraform.tfvars**. Example:
-    `vpc_cidr_block = "172.16.0.0/16"`{.language-text}
+    `vpc_cidr_block = "172.16.0.0/16"`
 
 3.  Using **-var** command-line option. Example:
-    `terraform apply -var="vpc_cidr_block=10.0.10.0/24"`{.language-text}
+    `terraform apply -var="vpc_cidr_block=10.0.10.0/24"`
 
 4.  Using **-var-file** command-line option. Example:
-    `terraform apply -auto-approve -var-file=web-prod.tfvars`{.language-text}
+    `terraform apply -auto-approve -var-file=web-prod.tfvars`
 
 5.  Exporting the variable at the terminal. Example:
-    `export TF_VAR_vpc_cidr_block="192.168.100.0/24"  `{.language-text}
+    `export TF_VAR_vpc_cidr_block="192.168.100.0/24"  `
 
 Variable definition precedence (from highest to lowest):
 
-1.  Variables specified at the terminal using\*\* -var\*\* and
+1.  Variables specified at the terminal using -var and
     **-var-file** options.
 
 2.  Variables defined in **terraform.tfvars**.
 
-3.  Variables defined as environment variables using **TF\_VAR** prefix.
+3.  Variables defined as environment variables using **TFVAR** prefix.
 
 ### String Interpolation
 
 You can interpolate other values in strings by these values in
-`${}`{.language-text}, such as `${var.foo}`{.language-text}.
+`${}`, such as `${var.foo}`.
 
 The interpolation syntax is powerful and allows you to reference
 variables, attributes of resources, call functions, etc.
 
 You can escape interpolation with double dollar signs:
-`$${foo} `{.language-text}will be rendered as a literal
-`${foo}`{.language-text}.
+`$${foo} `will be rendered as a literal
+`${foo}`.
 
 ### Variable Types
 
@@ -566,44 +523,37 @@ You can escape interpolation with double dollar signs:
 
 #### type number
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "web_port" {
     description = "Web Port"
     default = 80
     type = number
 }
 ```
-:::
 
 #### type string
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "aws_region" {
   description = "AWS Region"
   type = string
   default = "eu-central-1"
 }
 ```
-:::
 
 #### type bool
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "enable_dns" {
   description = "DNS Support for the VPC"
   type = bool
   default = true
 }
 ```
-:::
 
 #### type list (of strings)
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "azs" {
   description = "AZs in the Region"
   type = list(string)
@@ -614,12 +564,10 @@ variable "azs" {
       ]
 }
 ```
-:::
 
 #### type map
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "amis" {
   type = map(string)
   default = {
@@ -628,23 +576,19 @@ variable "amis" {
   }
 }
 ```
-:::
 
 #### type tuple
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "my_instance" {
     type = tuple([string, number, bool])  
     default = ["t2.micro", 1, true ]
 }
 ```
-:::
 
 #### type object
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "egress_dsg" {
     type = object({
         from_port = number
@@ -660,7 +604,6 @@ variable "egress_dsg" {
     }
 }
 ```
-:::
 
 ### Data Sources {#data-sources}
 
@@ -671,8 +614,8 @@ instance. Data sources are provided by providers.
 #### Use Data Sources
 
 A **data block** requests that Terraform read from a given data source
-(**\"aws\_ami\"**) and export the result under the given local name
-(**\"ubuntu\"**).
+(**awsami**) and export the result under the given local name
+(**ubuntu**).
 
 The data source and name together serve as an identifier for a given
 resource and therefore must be unique within a module.
@@ -680,8 +623,7 @@ resource and therefore must be unique within a module.
 Within the block body (between { and }) are query constraints defined by
 the data source.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 data "aws_ami" "ubuntu" {
  most_recent = true
 
@@ -692,7 +634,6 @@ data "aws_ami" "ubuntu" {
  }
 }
 ```
-:::
 
 ### Output Values {#output-values}
 
@@ -706,13 +647,11 @@ Each output value exported by a module must be declared using an
 **output block**. The label immediately after the output keyword is the
 name.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 output "instance_ip_addr" {
  value = aws_instance.server.private_ip 
 }
 ```
-:::
 
 ### Loops {#loops}
 
@@ -720,7 +659,7 @@ Terraform offers the following looping constructs, each intended to be
 used in a slightly different scenario:
 
 -   **count** meta-argument: loop over resources.
--   **for\_each** meta-argument: loop over resources and inline blocks
+-   **foreach** meta-argument: loop over resources and inline blocks
     within a resource.
 -   **for** expressions: loop over lists and maps.
 
@@ -732,8 +671,7 @@ be used to manage similar resources.
 count is a looping technique and can be used with modules and with every
 resource type.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # creating multiple EC2 instances using count
 resource "aws_instance" "server" {
   ami = "ami-06ec8443c2a35b0ba"
@@ -741,28 +679,25 @@ resource "aws_instance" "server" {
   count = 3  # creating 3 resources
 }
 ```
-:::
 
-\
 In blocks where count is set, an additional count object is available.
 
 **count.index** represents the distinct index number (starting with 0)
 corresponding to the current object.
 
-### for\_each {#for-each}
+### foreach {#for-each}
 
-**for\_each** is another meta-argument used to duplicate resources that
+**foreach** is another meta-argument used to duplicate resources that
 are similar but need to be configured differently.
 
-for\_each was introduced more recently to overcome the downsides of
+foreach was introduced more recently to overcome the downsides of
 count.
 
 If your resources are almost identical, count is appropriate. If some of
-their arguments need distinct values that can\'t be directly derived
-from an integer, it\'s safer to use for\_each.
+their arguments need distinct values that cant be directly derived
+from an integer, its safer to use foreach.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # declaring a variable
 variable "users" {
   type = list(string)
@@ -775,15 +710,13 @@ resource "aws_iam_user" "test" {
   name = each.key
 }
 ```
-:::
 
 ### For Expressions
 
 A **for** expression creates a complex type value by transforming
 another complex type value.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "names" {
     type = list
     default = ["daniel", "ada'", "john wick"]
@@ -799,14 +732,11 @@ output "short_upper_names" {
   value = [for name in var.names : upper(name) if length(name) > 7]
 }
 ```
-:::
 
-\
 
-If you run `terraform apply -auto-approve`{.language-text} you\'ll get:
+If you run `terraform apply -auto-approve` youll get:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 Outputs:
 
 short_upper_names = [
@@ -818,15 +748,13 @@ show_names = [
   "JOHN WICK",
 ]
 ```
-:::
 
 ### Splat Expressions
 
 A **splat** expression provides a more concise way to express a common
 operation that could otherwise be performed with a for expression.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # Launch an EC2 instance
 resource "aws_instance" "server" {
   ami = "ami-05cafdf7c9f772ad2"
@@ -838,7 +766,6 @@ output "private_addresses"{
   value = aws_instance.server[*].private_ip  # splat expression
 }
 ```
-:::
 
 ### Dynamic Blocks
 
@@ -854,8 +781,7 @@ A dynamic block produces nested blocks instead of a complex typed value.
 It iterates over a given complex value, and generates a nested block for
 each element of that complex value.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # Declaring a variable of type list
 variable "ingress_ports" {
   description = "List Of Ingress Ports"
@@ -879,24 +805,22 @@ resource "aws_default_security_group" "default_sec_group" {
    }
 }
 ```
-:::
 
 ### Conditional Expressions {#conditional-expressions}
 
 A **conditional expression** uses the value of a boolean expression to
 select one of two values.
 
-Syntax: `condition ? true_val : false_val`{.language-text}
+Syntax: `condition ? true_val : false_val`
 
-If condition is true then the result is true\_val. If condition is false
-then the result is false\_val.
+If condition is true then the result is trueval. If condition is false
+then the result is falseval.
 
 The condition can be any expression that resolves to a boolean value.
 This will usually be an expression that uses the equality, comparison,
 or logical operators.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 variable "istest" {
     type = bool
     default = true
@@ -916,7 +840,6 @@ resource "aws_instance" "prod-server" {
   count = var.istest == false ? 1:0  # conditional expression
 }
 ```
-:::
 
 ### Terraform Locals {#terraform-locals}
 
@@ -930,8 +853,7 @@ submitted by users but calculated inside the configuration.
 Locals are available only in the current module. They are locally
 scoped.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 # the local values are declared in a single `locals` block
 locals {
   owner = "DevOps Corp Team"
@@ -968,9 +890,7 @@ resource "aws_internet_gateway" "dev_igw" {
   }
 }
 ```
-:::
 
-\
 
 Note: Local values are created by a locals block (plural), but you
 reference them as attributes on an object named local (singular).
@@ -987,14 +907,13 @@ Terraform does not support user-defined functions.
 There are functions for numbers, strings, collections, file system, date
 and time, IP Network, Type Conversions and more.
 
-You can experiment with the behavior of Terraform\'s built-in functions
+You can experiment with the behavior of Terraforms built-in functions
 from the Terraform console, by running the
-`terraform console`{.language-text} command.
+`terraform console` command.
 
 Examples:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 > max(5, 12, 9)
 12
 
@@ -1046,7 +965,6 @@ what?
 > cidrhost("10.1.2.240/28", 14)
 10.1.2.254
 ```
-:::
 
 ### Backends and Remote State {#backends-and-remote-state}
 
@@ -1059,10 +977,10 @@ The default backend is local, and it stores the state as a plain file in
 the current working directory.
 
 The backend needs to be initialized by running
-`terraform init`{.language-text}.
+`terraform init`.
 
 If you switch the backend, Terraform provides a migration option which
-is `terraform init -migrate-state`{.language-text}.
+is `terraform init -migrate-state`.
 
 Terraform supports both local and remote backends:
 
@@ -1079,8 +997,7 @@ Terraform supports both local and remote backends:
 2.  Configure Terraform to use the remote state from within the S3
     bucket.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 terraform {
  backend "s3" {
    bucket = "bucket_name"
@@ -1091,11 +1008,9 @@ terraform {
  }
 }
 ```
-:::
 
-\
 
-3.  Run `terraform init`{.language-text} to initialize the backend.
+3.  Run `terraform init` to initialize the backend.
 
 #### Configure Remote State on Terraform Cloud {#remote-state-terraform}
 
@@ -1107,8 +1022,7 @@ terraform {
 3.  Configure Terraform to use the remote state from within the S3
     bucket.
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 terraform {
   required_providers {
     aws = {
@@ -1124,20 +1038,18 @@ terraform {
   }
 }
 ```
-:::
 
-\
 
 4.  Authenticate to Terraform Cloud to proceed with initialization.
 
-5.  Run \'terraform login\'.
+5.  Run terraform login.
 
-6.  Run \'terraform init\' to initialize the backend.
+6.  Run terraform init to initialize the backend.
 
 ### Terraform Modules {#terraform-modules}
 
 Terraform modules are a powerful way to reuse code and stick to the
-**DRY principle**, which stands for \"Do Not Repeat Yourself\". Think of
+**DRY principle**, which stands for Do Not Repeat Yourself. Think of
 modules as functions in a programming language.
 
 Modules will help you organize configuration, encapsulate configuration,
@@ -1155,8 +1067,8 @@ Terraform supports Local and Remote modules:
 A Terraform module is a set of Terraform configuration files in a single
 directory.
 
-When you run Terraform commands like `terraform plan`{.language-text} or
-`terraform apply`{.language-text} directly from such a directory, then
+When you run Terraform commands like `terraform plan` or
+`terraform apply` directly from such a directory, then
 that directory will be considered the root module.
 
 The modules that are imported from other directories into the root
@@ -1164,8 +1076,7 @@ module are called **child modules**.
 
 Calling a child module from within the root module:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 module "myec2" {
   # path to the module's directory
   # the source argument is mandatory for all modules.
@@ -1177,101 +1088,37 @@ module "myec2" {
   servers = var.servers
 }
 ```
-:::
 
-\
 
-It\'s good practice to start building everything as a module, create a
+Its good practice to start building everything as a module, create a
 library of modules to share with your team and from the very beginning
 to start thinking of your entire infrastructure as a collection of
 reusable modules.
 
 After adding or removing a module, you must re-run
-`terraform init`{.language-text} to install the module.
+`terraform init` to install the module.
 
 ### Troubleshooting and Logging {#troubleshooting}
 
-The **TF\_LOG** enables logging and can be set to one of the following
+The **TFLOG** enables logging and can be set to one of the following
 log levels: TRACE, DEBUG, INFO, WARN or ERROR.
 
 Once you have configured your logging you can save the output to a file.
 This is useful for further inspection.
 
-The **TF\_LOG\_PATH** variable will create the specified file and append
+The **TFLOGPATH** variable will create the specified file and append
 the logs generated by Terraform.
 
 Example:
 
-::: {.gatsby-highlight data-language="json"}
-``` {.language-json .line-numbers style="counter-reset: linenumber NaN"}
+``` 
 export TF_LOG_PATH=terraform.log
 terraform apply
 ```
-:::
 
-\
 You can generate logs from the core application and the Terraform
 provider separately.
 
-To enable core logging, set the **TF\_LOG\_CORE** environment variable,
-and to generate provider logs set the **TF\_LOG\_PROVIDER** to the
+To enable core logging, set the **TFLOGCORE** environment variable,
+and to generate provider logs set the **TFLOGPROVIDER** to the
 appropriate log level.
-:::
-:::
-
-::: {.cheat-sheetsstyles__BackToTop-sc-15sn584-0 .igGVew}
-:::
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .gridstyles__GridContainer-sc-1um5umw-0 .bpCnhS .footerstyles__PrimaryContentContainer-sc-ipcxq4-1 .fDhttl}
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__LeftFooterContainer-sc-ipcxq4-2 .ifwown}
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .gridstyles__GridContainer-sc-1um5umw-0 .bpCnhS .footerstyles__RightFooterContainer-sc-ipcxq4-3 .kSjLis}
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__PrimaryLinksColumn-sc-ipcxq4-4 .gOqAPF}
-[Quick Links]{.footerstyles__PrimaryColumnTitle-sc-ipcxq4-5
-.cGQnBx}[Home](/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Pricing](/academy/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Testimonials](/testimonials/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Blog](/blog/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Community](/community/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__PrimaryLinksColumn-sc-ipcxq4-4 .gOqAPF}
-[The Academy]{.footerstyles__PrimaryColumnTitle-sc-ipcxq4-5
-.cGQnBx}[Courses](/courses/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Career
-Paths](/career-paths/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Workshops &
-More](/workshops-and-more/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Career Path
-Quiz](/tech-career-path-quiz/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Free
-Resources](/resources/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__PrimaryLinksColumn-sc-ipcxq4-4 .gOqAPF}
-[Company]{.footerstyles__PrimaryColumnTitle-sc-ipcxq4-5 .cGQnBx}[About
-ZTM](/about/){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6 .gDsHhj}[Swag
-Store](https://store.zerotomastery.io){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Ambassadors](https://ambassador.zerotomastery.io/join){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}[Contact
-Us](mailto:support@zerotomastery.io){.footerstyles__PrimaryColumnLink-sc-ipcxq4-6
-.gDsHhj}
-:::
-:::
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .gridstyles__GridContainer-sc-1um5umw-0 .bpCnhS .footerstyles__SecondaryContentContainer-sc-ipcxq4-7 .chxhal}
-::: {.footerstyles__SocialsContainer-sc-ipcxq4-8 .eqUcsI}
-:::
-
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__SecondaryRightContainer-sc-ipcxq4-9 .czKacI}
-::: {.divcomponent__Div-sc-hnfdyq-0 .footerstyles__SecondaryLinksContainer-sc-ipcxq4-10 .jiNKiH}
-[Privacy](/privacy/){.footerstyles__SecondaryLink-sc-ipcxq4-11
-.ijPzUo}[Terms](/terms/){.footerstyles__SecondaryLink-sc-ipcxq4-11
-.ijPzUo}[Cookies](/cookies-policy/){.footerstyles__SecondaryLink-sc-ipcxq4-11
-.ijPzUo}
-:::
