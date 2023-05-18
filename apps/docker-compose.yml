@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '7171:81' # Admin Web Port
+    environment:
+      # Mysql/Maria connection parameters:
+      DB_MYSQL_HOST: db
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: $MYSQL_USER
+      DB_MYSQL_PASSWORD: $MYSQL_PASSWORD
+      DB_MYSQL_NAME: $MYSQL_DATABASE
+      DISABLE_IPV6: true
+    volumes:
+      -  nginxproxymanager_data:/data
+      -  nginxproxymanager_data:/etc/letsencrypt
+    depends_on:
+      - db
+
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      -  mariadb_data:/var/lib/mysql
+
+  volumes:
+    nginxproxymanager_data:
+      external: true
+    mariadb_data:
+      external: true

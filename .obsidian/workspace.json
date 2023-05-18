@@ -4,14 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "3222de1de9e51c1a",
+        "id": "da71aebed15cfdd2",
         "type": "tabs",
         "children": [
           {
-            "id": "cd394862fbbe5792",
+            "id": "0082170c9435db89",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "graph",
               "state": {}
             }
           }
@@ -138,6 +138,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "cd394862fbbe5792",
-  "lastOpenFiles": []
+  "active": "0082170c9435db89",
+  "lastOpenFiles": [
+    "apps/grafana.md",
+    "apps/cloudflare-tunnels.md",
+    "apps/cert-manager.md",
+    "apps/bind9.md",
+    "apps/argocd.md",
+    "linux/33mount.md"
+  ]
 }
