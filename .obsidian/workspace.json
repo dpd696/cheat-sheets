@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "a808a1484b42c9fe",
+        "id": "f0fe6d8aa87de6b3",
         "type": "tabs",
         "children": [
           {
-            "id": "a6fa0fabef7eddc8",
+            "id": "5b59736180148d18",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tools/website-to-md.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tools/website-to-md.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tools/website-to-md.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "tools/website-to-md.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,8 +138,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a6fa0fabef7eddc8",
+  "active": "5b59736180148d18",
   "lastOpenFiles": [
+    "tools/website-to-md.md",
+    "linux/04running_commands_as_root.md",
+    "linux/03bash_history.md",
+    "linux/02keyboard_shortcuts.md",
+    "linux/01help.md",
+    "linux/00linux_setup.md",
     "apps/grafana.md",
     "apps/cloudflare-tunnels.md",
     "apps/cert-manager.md",
