@@ -4,31 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "f0fe6d8aa87de6b3",
+        "id": "cdd34637bac7268c",
         "type": "tabs",
         "children": [
           {
-            "id": "5b59736180148d18",
+            "id": "f35bf3d50a02566b",
             "type": "leaf",
             "state": {
               "type": "empty",
               "state": {}
             }
-          },
-          {
-            "id": "84154bb2a128d609",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "apps/rancher.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -94,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "apps/rancher.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "apps/rancher.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "apps/rancher.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -155,8 +138,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "84154bb2a128d609",
+  "active": "f35bf3d50a02566b",
   "lastOpenFiles": [
+    "linux/34nfs.md",
+    "apps/rancher.md",
     "tools/website-to-md.md",
     "linux/04running_commands_as_root.md",
     "linux/03bash_history.md",
