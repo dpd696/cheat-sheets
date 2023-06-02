@@ -10,6 +10,7 @@ nano ~/.bashrc
 ---
 - Common Alias Commands to Add at the End of ~/.bashrc
 ```
+alias l="ls -alh"
 alias c="clear"
 alias cl="clear;ls;pwd"
 alias root="sudo su"
