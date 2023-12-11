@@ -18,7 +18,7 @@ sudo apt -y install nfs-common
 *TEMP EXAMPLE*:
 `/srv/nfs 192.168.1.2(rw,sync,no_root_squash,subtree_check)`
 
-*/ets/fstab*
+*NFS Mount `/etc/fstab`*
 ```
 192.168.1.11:/volume1/foo /media/bar nfsvers=3 0 0
 # 192.168.1.11 is the server
