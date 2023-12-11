@@ -18,6 +18,16 @@ sudo apt -y install nfs-common
 *TEMP EXAMPLE*:
 `/srv/nfs 192.168.1.2(rw,sync,no_root_squash,subtree_check)`
 
+*/ets/fstab*
+```
+192.168.1.11:/volume1/foo /media/bar nfsvers=3 0 0
+# 192.168.1.11 is the server
+# forcing NFS version 3 because Synology NAS does not support version 4!
+```
+Then enter `mount -a` to activate the new settings.
+
+On the client, `touch /media/bar/foo.txt` should now work, and `ls -l` will show that the file is created with uid=1038 and gid=65544.
+
 ### root rw permissions
 Note the **root_squash** mount option. This option is set by default and must be disabled if not wanted.
 *Fix:* enable `no_root_squash`in the `/etc/exports` file and reload the permissions with `sudo exportfs -ra`
