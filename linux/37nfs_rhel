@@ -1,0 +1,223 @@
+Introduction
+NFS, or Network File System, is a distributed file system protocol that allows you to mount remote directories on your server. This allows you to manage storage space in a different location and write to that space from multiple clients. NFS provides a relatively standard and performant way to access remote systems over a network and works well in situations where the shared resources must be accessed regularly.
+
+In this guide, you’ll go over how to install the software needed for NFS functionality on Rocky Linux 8, configure two NFS mounts on a server and client, and mount and unmount the remote shares.
+
+Prerequisites
+You will use two servers in this tutorial, with one sharing part of its filesystem with the other. To follow along, you will need:
+
+Two Rocky Linux 8 servers. Each of these should have a non-root user with sudo privileges, a firewall set up with UFW, and private networking, if it’s available to you.
+
+For assistance setting up a non-root user with sudo privileges and a firewall, follow our Initial Server Setup with Rocky Linux 8 guide.
+
+If you’re using DigitalOcean Droplets for your server and client, you can read more about setting up a private network in our documentation on How to Create a VPC.
+
+Throughout this tutorial, the server that shares its directories will be referred to as the host and the server that mounts these directories as the client. You will need to know the IP address for both. Be sure to use the private network address, if available.
+
+Throughout this tutorial these IP addresses will be referred to by the placeholders host_ip and client_ip. Please substitute as needed.
+
+Step 1 — Downloading and Installing the Components
+You’ll begin by installing the necessary components on each server.
+
+On the Host
+On the host server, use the dnf package manager to install the nfs-utils package, which will allow you to share your directories:
+
+sudo dnf install nfs-utils
+Once these packages are installed, switch to the client server.
+
+On the Client
+On the client server, you need to install the same nfs-utils package:
+
+sudo dnf install nfs-utils
+Now that both servers have the necessary packages, you can start configuring them.
+
+Step 2 — Creating the Share Directories on the Host
+You’re going to share two separate directories, with different configuration settings, in order to illustrate two key ways that NFS mounts can be configured with respect to superuser access.
+
+Superusers can do anything anywhere on their system. However, NFS-mounted directories are not part of the system on which they are mounted, so by default, the NFS server refuses to perform operations that require superuser privileges. This default restriction means that superusers on the client cannot write files as root, reassign ownership, or perform any other superuser tasks on the NFS mount.
+
+Sometimes, however, there are trusted users on the client system who need to perform these actions on the mounted file system but who have no need for superuser access on the host. You can configure the NFS server to allow this, although it introduces an element of risk that a malicious user could gain root access to the entire host system.
+
+Example 1: Exporting a General Purpose Mount
+In the first example, you’ll create a general-purpose NFS mount that uses default NFS behavior to make it difficult for a user with root privileges on the client machine to interact with the host using those client superuser privileges. You might use something like this to store files which were uploaded using a content management system or to create space for users to easily share project files.
+
+First, make the share directory (using the -p option of mkdir, which will create the entire file path if needed):
+
+sudo mkdir /var/nfs/general -p
+Since you’re creating it with sudo, the directory is owned by the host’s root user:
+
+ls -dl /var/nfs/general
+Output
+drwxr-xr-x 2 root root 4096 Apr 17 23:51 /var/nfs/general
+NFS will translate any root operations on the client to the nobody user as a security measure. Therefore, you need to change the directory ownership to nobody:
+
+sudo chown nobody /var/nfs/general
+You’re now ready to export this directory.
+
+Example 2: Exporting the Home Directory
+In the second example, the goal is to make user home directories stored on the host available on client servers, while allowing trusted administrators of those client servers the access they need to conveniently manage users.
+
+To do this, you’ll export the /home directory. Since it already exists, you don’t need to create it. You won’t change the permissions, either. If you did, it could lead to a range of issues for anyone with a home directory on the host machine.
+
+Step 3 — Configuring the NFS Exports on the Host Server
+Next, you’ll dive into the NFS configuration file to set up the sharing of these resources.
+
+The default text editor that comes with Rocky Linux 9 is vi. vi is an extremely powerful text editor, but it can be somewhat obtuse for users who lack experience with it. You might want to install a more user-friendly editor such as nano to facilitate editing configuration files on your Rocky Linux 8 server:
+
+sudo dnf install nano
+On the host machine, open the /etc/exports file in nano or your favorite text editor with root privileges:
+
+sudo nano /etc/exports
+On Rocky Linux 8, this file will be empty by default. This is the syntax you need to create:
+
+/etc/exports
+directory_to_share    client(share_option1,...,share_optionN)
+Add a line for each of the directories that you plan to share. Be sure to change the client_ip placeholder shown here to your actual IP address:
+
+/etc/exports
+/var/nfs/general    client_ip(rw,sync,no_subtree_check)
+/home               client_ip(rw,sync,no_root_squash,no_subtree_check)
+Here, you’re using the same configuration options for both directories with the exception of no_root_squash. Take a look at what each of these options mean:
+
+rw: This option gives the client computer both read and write access to the volume.
+sync: This option forces NFS to write changes to disk before replying. This results in a more stable and consistent environment since the reply reflects the actual state of the remote volume. However, it also reduces the speed of file operations.
+no_subtree_check: This option prevents subtree checking, which is a process where the host must check whether the file is actually still available in the exported tree for every request. This can cause many problems when a file is renamed while the client has it opened. In almost all cases, it is better to disable subtree checking.
+no_root_squash: By default, NFS translates requests from a root user remotely into a non-privileged user on the server. This was intended as security feature to prevent a root account on the client from using the file system of the host as root. no_root_squash disables this behavior for certain shares.
+When you are finished making your changes, save and close the file. If you are using nano, press Ctrl+X, then when prompted, Y and then Enter. Then, to make the shares available to the clients that you configured, start the NFS server and enable it to run automatically with systemctl:
+
+sudo systemctl enable nfs-server
+sudo systemctl start nfs-server
+Verify that the service has started using systemctl status:
+
+sudo systemctl status nfs-server
+Output
+● nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: >
+  Drop-In: /run/systemd/generator/nfs-server.service.d
+           └─order-with-mounts.conf
+   Active: active (exited) since Mon 2022-08-08 17:41:18 UTC; 4s ago
+  Process: 14348 ExecStart=/bin/sh -c if systemctl -q is-active gssproxy; then systemct>
+  Process: 14336 ExecStart=/usr/sbin/rpc.nfsd (code=exited, status=0/SUCCESS)
+  Process: 14335 ExecStartPre=/usr/sbin/exportfs -r (code=exited, status=0/SUCCESS)
+ Main PID: 14348 (code=exited, status=0/SUCCESS)
+
+Aug 08 17:41:18 rocky8-nfs-host systemd[1]: Starting NFS server and services...
+Aug 08 17:41:18 rocky8-nfs-host systemd[1]: Started NFS server and services.
+Before you can actually use the new shares, however, you’ll need to be sure that traffic to the shares is permitted by firewall rules.
+
+Step 4 — Adjusting the Firewall on the Host
+If you are running a firewalld firewall as recommended in our Initial Server Setup with Rocky Linux 8 guide, check which services are currently permitted in the services line of the output from firewall-cmd:
+
+firewall-cmd --permanent --list-all | grep services
+Output
+services: cockpit dhcpv6-client ssh
+On your system, only core system services are being allowed, so you’ll need to add rules for NFS traffic. NFS on Rocky Linux makes use of three different services, and they all need to be allowed through your firewall. You can add these rules with firewall-cmd:
+
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --permanent --add-service=mountd
+firewall-cmd --permanent --add-service=rpc-bind
+firewall-cmd --reload
+You can verify that they’ve been added:
+
+firewall-cmd --permanent --list-all | grep services
+Output
+services: cockpit dhcpv6-client mountd nfs rpc-bind ssh
+Note that this will open your firewall for these services globally, rather than only to a single client. This should not be a problem, because you already configured your NFS mounts to only be accessible to a single IP address. If you ever need to add more security to your firewalld configuration directly, you can implement firewalld zones.
+
+Step 5 — Creating Mount Points and Mounting Directories on the Client
+Now that the host server is configured and serving its shares, you’ll prepare your client.
+
+In order to make the remote shares available on the client, you need to mount the directories on the host that you want to share to empty directories on the client.
+
+Note: If there are files and directories in your mount point, they will become hidden as soon as you mount the NFS share. To avoid the loss of important files, be sure that if you mount in a directory that already exists that the directory is empty.
+
+You’ll create two directories for your mounts:
+
+sudo mkdir -p /nfs/general
+sudo mkdir -p /nfs/home
+Now that you have a location to put the remote shares and you’ve opened the firewall, you can mount the shares using the IP address of your host server:
+
+sudo mount host_ip:/var/nfs/general /nfs/general
+sudo mount host_ip:/home /nfs/home
+These commands will mount the shares from the host computer onto the client machine. You can double-check that they mounted successfully in several ways. You can check this with a mount or findmnt command, but df -h provides a more readable output:
+
+df -h
+Output
+Filesystem                   Size  Used Avail Use% Mounted on
+Filesystem                       Size  Used Avail Use% Mounted on
+devtmpfs                         370M     0  370M   0% /dev
+tmpfs                            405M     0  405M   0% /dev/shm
+tmpfs                            405M   11M  394M   3% /run
+tmpfs                            405M     0  405M   0% /sys/fs/cgroup
+/dev/vda1                         25G  1.5G   24G   6% /
+tmpfs                             81M     0   81M   0% /run/user/0
+host_ip:/var/nfs/general   25G  1.6G   24G   7% /nfs/general
+host_ip:/home              25G  1.6G   24G   7% /nfs/home
+Both of the shares you mounted appear at the bottom. Because they were mounted from the same file system, they show the same disk usage.
+
+Step 6 — Testing NFS Access
+Next, test access to the shares by writing something to each of them.
+
+Example 1: The General Purpose Share
+First, write a test file to the /var/nfs/general share:
+
+sudo touch /nfs/general/general.test
+Then, check its ownership:
+
+ls -l /nfs/general/general.test
+Output
+-rw-r--r--. 1 nobody nobody 0 Aug  8 18:24 /nfs/general/general.test
+Because you mounted this volume without changing NFS’s default behavior and created the file as the client machine’s root user via the sudo command, ownership of the file defaults to nobody. client superusers won’t be able to perform typical administrative actions, like changing the owner of a file or creating a new directory for a group of users, on this NFS-mounted share.
+
+Example 2: The Home Directory Share
+To compare the permissions of the General Purpose share with the Home Directory share, create a file in /nfs/home the same way:
+
+sudo touch /nfs/home/home.test
+Then look at the ownership of the file:
+
+ls -l /nfs/home/home.test
+Output
+-rw-r--r--. 1 root root 0 Aug  8 18:26 /nfs/home/home.test
+You created home.test as root using the sudo command, exactly the same way you created the general.test file. However, in this case it is owned by root because you overrode the default behavior when you specified the no_root_squash option on this mount. This allows your root users on the client machine to act as root and makes the administration of user accounts much more convenient. At the same time, it means you don’t have to give these users root access on the host.
+
+Step 7 — Mounting the Remote NFS Directories at Boot
+You can mount the remote NFS shares automatically at boot by adding them to /etc/fstab file on the client.
+
+Open /etc/fstab with root privileges in your text editor:
+
+sudo nano /etc/fstab
+At the bottom of the file, add a line for each of your shares. They will look like this:
+
+/etc/fstab
+. . .
+host_ip:/var/nfs/general    /nfs/general   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+host_ip:/home               /nfs/home      nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+Note: You can find more information about the options you are specifying here in the NFS manual.
+
+The client will automatically mount the remote partitions at boot, although it may take a few moments to establish the connection and for the shares to be available.
+
+Step 8 — Unmounting an NFS Remote Share
+If you no longer want the remote directory to be mounted on your system, you can unmount it by moving out of the share’s directory structure and unmounting, like this:
+
+cd ~
+sudo umount /nfs/home
+sudo umount /nfs/general
+Take note that the command is named umount not unmount as you may expect.
+
+This will remove the remote shares, leaving only your local storage accessible:
+
+df -h
+Output
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        370M     0  370M   0% /dev
+tmpfs           405M     0  405M   0% /dev/shm
+tmpfs           405M   11M  394M   3% /run
+tmpfs           405M     0  405M   0% /sys/fs/cgroup
+/dev/vda1        25G  1.5G   24G   6% /
+tmpfs            81M     0   81M   0% /run/user/0
+If you also want to prevent them from being remounted on the next reboot, edit /etc/fstab and either delete the line or comment it out by placing a # character at the beginning of the line. You can also prevent auto-mounting by removing the auto option, which will allow you to still mount it manually.
+
+Conclusion
+In this tutorial, you created an NFS host and illustrated some key NFS behaviors by creating two different NFS mounts, which you shared with a NFS client.
+
+If you’re looking to implement NFS in production, it’s important to note that the protocol itself is not encrypted. In cases where you’re sharing over a private network, this may not be a problem. In other cases, a VPN or some other type of encrypted tunnel will be necessary to protect your data.
